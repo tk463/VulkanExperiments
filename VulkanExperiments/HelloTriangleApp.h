@@ -39,36 +39,17 @@ inline void DestroyDebugReportCallbackEXT(const VkInstance instance, const VkDeb
 struct QueueFamilyIndices
 {
 	int graphicsFamily = -1;
+	int presentFamily = -1;
 
 	bool isComplete() const
 	{
-		return graphicsFamily >= 0;
+		return graphicsFamily >= 0 && presentFamily >= 0;
 	}
 };
 
 class HelloTriangleApp
 {
-	GLFWwindow* window;
-	VkInstance instance;
-	VkDebugReportCallbackEXT callback;
-	VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
-	VkDevice device;
-	VkQueue graphicsQueue;
-
-	void initWindow();
-	void initVulkan();
-	void mainLoop();
-	void cleanup();
-
-	void createInstance();
-
-	bool checkValidationLayerSupport();
-
-	std::vector<const char*> getRequiredExtensions();
-
-	void setupDebugCallback();
-
-	static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
+	static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback( //keep this up
 		VkDebugReportFlagsEXT flags,
 		VkDebugReportObjectTypeEXT objType,
 		uint64_t obj,
@@ -83,6 +64,30 @@ class HelloTriangleApp
 		return VK_FALSE;
 	}
 
+	GLFWwindow* window;
+	VkInstance instance;
+	VkDebugReportCallbackEXT callback;
+	VkPhysicalDevice physicalDevice;
+	VkDevice device;
+	VkQueue graphicsQueue;
+	VkSurfaceKHR surface;
+	VkQueue presentQueue;
+
+	void initWindow();
+	void initVulkan();
+	void mainLoop();
+	void cleanup();
+
+	void createInstance();
+
+	bool checkValidationLayerSupport();
+
+	std::vector<const char*> getRequiredExtensions();
+
+	void setupDebugCallback();
+
+	void createSurface();
+
 	void pickPhysicalDevice();
 
 	bool isDeviceSuitable(VkPhysicalDevice device);
@@ -90,6 +95,8 @@ class HelloTriangleApp
 	QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
 
 	void createLogicalDevice();
+
+	
 
 public:
 	HelloTriangleApp();
