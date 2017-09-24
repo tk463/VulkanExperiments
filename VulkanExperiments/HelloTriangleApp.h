@@ -36,11 +36,24 @@ inline void DestroyDebugReportCallbackEXT(const VkInstance instance, const VkDeb
 	}
 }
 
+struct QueueFamilyIndices
+{
+	int graphicsFamily = -1;
+
+	bool isComplete() const
+	{
+		return graphicsFamily >= 0;
+	}
+};
+
 class HelloTriangleApp
 {
 	GLFWwindow* window;
 	VkInstance instance;
 	VkDebugReportCallbackEXT callback;
+	VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+	VkDevice device;
+	VkQueue graphicsQueue;
 
 	void initWindow();
 	void initVulkan();
@@ -69,6 +82,14 @@ class HelloTriangleApp
 
 		return VK_FALSE;
 	}
+
+	void pickPhysicalDevice();
+
+	bool isDeviceSuitable(VkPhysicalDevice device);
+
+	QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
+
+	void createLogicalDevice();
 
 public:
 	HelloTriangleApp();
