@@ -20,5 +20,6 @@
 #include <iostream>
 #include <stdexcept>
 #include <functional>
+#include <algorithm>
 #include <vector>
 #include <set>
