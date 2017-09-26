@@ -87,6 +87,10 @@ class HelloTriangleApp
 	VkFormat swapChainImageFormat;
 	VkExtent2D swapChainExtent;
 	std::vector<VkImageView> swapChainImageViews;
+	VkRenderPass renderPass;
+	VkPipelineLayout pipelineLayout;
+	VkPipeline graphicsPipeline;
+	std::vector<VkFramebuffer> swapChainFramebuffers;
 
 	void initWindow();
 	void initVulkan();
@@ -125,7 +129,15 @@ class HelloTriangleApp
 
 	void createImageViews();
 
+	void createRenderPass();
+
+	static std::vector<char> readFile(const std::string& filename);
+
+	VkShaderModule createShaderModule(const std::vector<char>& code);
+
 	void createGraphicsPipeline();
+
+	void createFramebuffers();
 
 public:
 	HelloTriangleApp();
