@@ -86,6 +86,7 @@ class HelloTriangleApp
 	std::vector<VkImage> swapChainImages;
 	VkFormat swapChainImageFormat;
 	VkExtent2D swapChainExtent;
+	std::vector<VkImageView> swapChainImageViews;
 
 	void initWindow();
 	void initVulkan();
@@ -122,7 +123,9 @@ class HelloTriangleApp
 
 	void createSwapChain();
 
-	
+	void createImageViews();
+
+	void createGraphicsPipeline();
 
 public:
 	HelloTriangleApp();
