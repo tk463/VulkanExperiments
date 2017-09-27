@@ -74,6 +74,15 @@ class HelloTriangleApp
 		return VK_FALSE;
 	}
 
+	static void onWindowResized(GLFWwindow* window, const int width, const int height)
+	{
+		if (width == 0 || height == 0)
+			return;
+
+		auto app = reinterpret_cast<HelloTriangleApp*>(glfwGetWindowUserPointer(window));
+		app->recreateSwapChain();
+	}
+
 	GLFWwindow* window;
 	VkInstance instance;
 	VkDebugReportCallbackEXT callback;
@@ -151,6 +160,10 @@ class HelloTriangleApp
 	void createSemaphores();
 
 	void drawFrame();
+
+	void cleanupSwapChain();
+
+	void recreateSwapChain();
 
 public:
 	HelloTriangleApp();
