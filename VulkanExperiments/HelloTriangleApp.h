@@ -91,6 +91,11 @@ class HelloTriangleApp
 	VkPipelineLayout pipelineLayout;
 	VkPipeline graphicsPipeline;
 	std::vector<VkFramebuffer> swapChainFramebuffers;
+	VkCommandPool commandPool;
+	std::vector<VkCommandBuffer> commandBuffers;
+
+	VkSemaphore imageAvailableSemaphore;
+	VkSemaphore renderFinishedSemaphore;
 
 	void initWindow();
 	void initVulkan();
@@ -138,6 +143,14 @@ class HelloTriangleApp
 	void createGraphicsPipeline();
 
 	void createFramebuffers();
+
+	void createCommandPool();
+
+	void createCommandBuffers();
+
+	void createSemaphores();
+
+	void drawFrame();
 
 public:
 	HelloTriangleApp();
